@@ -4,9 +4,6 @@ Windows 开机自动登录 [OpenASI](https://app.openasi.bitmiracle.cn/dashboard
 
 ## 原理
 
-OpenASI 是前后端分离的单页应用（SPA）：前端 `app.openasi.bitmiracle.cn` 只是一堆静态文件，
-真正干活的是后端 `api.openasi.bitmiracle.cn`。脚本只跟后端说话，两步：
-
 1. `POST /api/auth/sign-in/email`，请求体 `{"email": ..., "password": ...}`
    → 从**响应头** `set-auth-token` 取 token（不是从响应体的 `token` 字段）
 2. `POST /api/checkin`，请求头 `Authorization: Bearer <token>`，请求体 `{"data": {}}`
@@ -18,8 +15,6 @@ OpenASI 是前后端分离的单页应用（SPA）：前端 `app.openasi.bitmira
 | `"error": null` | 签到成功 |
 | `"error": {"code": "CONFLICT"}` | 今天已经签过了 |
 | `"error": {"code": "UNAUTHORIZED"}` | token 无效 |
-
-所以判断成败要读 `error`，**不能只看状态码**。
 
 ## 用法
 
@@ -40,9 +35,6 @@ pip install requests
 ```vbs
 CreateObject("WScript.Shell").Run """<pythonw.exe 的路径>"" ""<checkin.py 的路径>""", 0, False
 ```
-
-用 `pythonw.exe`（不带控制台的 Python）就不会闪黑窗口。代价是**看不到任何输出**，
-所有结果只能查 `checkin.log`——所以日志是这个脚本唯一的眼睛。
 
 ## 设计说明
 
