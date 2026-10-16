@@ -1,0 +1,14 @@
+# ===== 凭证：绝对不要提交 =====
+config.json
+
+# ===== 运行日志（可能带 token） =====
+checkin.log
+*.log
+
+# ===== 临时 / 草稿文件 =====
+t.py
+tempCodeRunnerFile.py
+
+# ===== Python 缓存 =====
+__pycache__/
+*.pyc
